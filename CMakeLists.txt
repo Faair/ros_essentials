@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ros_essentials_cpp)
 
+add_compile_options(-std=c++11)
+
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -10,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   image_transport
   message_generation
+  geometry_msgs
 )
 
 
@@ -56,13 +59,14 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
 )
 
 
 add_library(utility_lib src/topic04_perception02_laser/laserscan/utility_lib.cpp)
+add_library(aruco_identification include/aruco_identification/aruco_identification.cpp)
 
 #LaserScan
 add_library(laserscan_lib src/topic04_perception02_laser/laserscan/LaserScanner.cpp)
@@ -108,6 +112,6 @@ add_executable(open_copy_cpp src/topic03_perception/cpp/open_copy.cpp)
 target_link_libraries(open_copy_cpp ${catkin_LIBRARIES})
 target_link_libraries(open_copy_cpp ${OpenCV_LIBRARIES})
 
-add_executable(image_pub_sub_cpp src/topic03_perception/cpp/image_pub_sub.cpp)
-target_link_libraries(image_pub_sub_cpp ${catkin_LIBRARIES})
+add_executable(image_pub_sub_cpp src/topic03_perception/cpp/image_pub_sub.cpp include/aruco_identification/aruco_identification.cpp)
+target_link_libraries(image_pub_sub_cpp ${catkin_LIBRARIES} aruco_identification)
 target_link_libraries(image_pub_sub_cpp ${OpenCV_LIBRARIES})
