@@ -67,15 +67,32 @@ public:
 
     if(mark == 998){
       geometry_msgs::Pose goal;
-      goal.position.x = 0.4;
-      goal.position.y = 0.6;
-      goal.position.z = 0.2;
-      goal.orientation.w = 1.0;
+      goal.position.x = 0.6;
+      goal.position.y = 0.2;
+      goal.position.z = 0.6;
+      goal.orientation.x = 0.0;
+      goal.orientation.y = 1.0;
+      goal.orientation.z = 0.0;
+      goal.orientation.w = 0.0;
+      pubGoal.publish(goal);
+      //image_sub_.shutdown();
+    }
+    if(mark == 100){
+      geometry_msgs::Pose goal;
+      goal.position.x = -0.2;
+      goal.position.y = 0.3;
+      goal.position.z = 0.6;
+      goal.orientation.x = -0.5;
+      goal.orientation.y = -0.5;
+      goal.orientation.z = 0.0;
+      goal.orientation.w = 0.0;
+      //goal.orientation.w = 1.0;
       pubGoal.publish(goal);
       //image_sub_.shutdown();
     }
   }
 };
+
 
 int main(int argc, char** argv)
 {
